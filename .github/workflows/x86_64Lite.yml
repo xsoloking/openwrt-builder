@@ -18,9 +18,9 @@ env:
   CONFIG_FILE: configs/x86_64Lite.config
   SYS_CONF_SH: configure.sh
   PACKS: package.sh
-  UPLOAD_BIN_DIR: false
+  UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
-  UPLOAD_RELEASE: true
+  UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
 
 jobs:

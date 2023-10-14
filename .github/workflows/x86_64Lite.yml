@@ -12,11 +12,10 @@ on:
 env:
   OPNAME: 'x86_64Lite'
   REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
+  REPO_BRANCH: 20230609
   FEEDS_CONF: feeds.conf.default
   EXTERNAL_FILE: configs/External_Lite.config
   CONFIG_FILE: configs/x86_64Lite.config
-  COMPL_CONFIG_FILE: configs/config
   SYS_CONF_SH: configure.sh
   PACKS: package.sh
   UPLOAD_BIN_DIR: true
@@ -95,7 +94,6 @@ jobs:
         cat $EXTERNAL_FILE >> openwrt/.config
         cd openwrt && make defconfig
         sed -i '/CONFIG_DEFAULT_luci/'d .config
-        [ -e $COMPL_CONFIG_FILE ] && mv $COMPL_CONFIG_FILE openwrt/.config
         cat .config
 
     - name: SSH connection to Actions
@@ -151,14 +149,14 @@ jobs:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
-    - name: Generate release tag
-      id: tag
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
-      run: |
-        echo "== Time：$(date +'%Y-%m-%d %H:%M:%S') =="
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M%S")" >> $GITHUB_OUTPUT
-        touch release.txt
-        echo "status=success" >> $GITHUB_OUTPUT
+    # - name: Generate release tag
+    #   id: tag
+    #   if: steps.compile.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+    #   run: |
+    #     echo "== Time：$(date +'%Y-%m-%d %H:%M:%S') =="
+    #     echo "release_tag=$(date +"%Y.%m.%d-%H%M%S")" >> $GITHUB_OUTPUT
+    #     touch release.txt
+    #     echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload firmware to release
       uses: softprops/action-gh-release@v1

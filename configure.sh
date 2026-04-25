@@ -2,10 +2,10 @@
 # Modify default system settings
 
 # 修改默认IP为192.168.10.1
-sed -i 's/192.168.1.1/192.168.2.99/g' package/base-files/files/bin/config_generate 
+sed -i 's/192.168.1.1/192.168.2.2/g' package/base-files/files/bin/config_generate 
 
 # Hello World
-echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+echo 'src-git helloworld https://github.com/fw876/helloworld;master' >>feeds.conf.default
 
 # passwall
 echo "src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main" >> feeds.conf.default
